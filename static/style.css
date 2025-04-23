@@ -9,15 +9,26 @@ html, body {
     height: 100%; /* Ensure the body stretches to the full height */
     margin: 0;
 }
-.user-img{
-    float: left;
-    margin-left: 125px;
-    margin-top: 20px;
-    width: 200px;
-    height: 200px;
-    border-radius: 100%;
-    overflow: hidden;
-    background-color: blue;
+.user-img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 0.5rem;
+}
+
+/* When sidebar is active (expanded), make the image larger */
+.sidebar.active .user-img {
+    width: 70px;
+    height: 70px;
+}
+
+/* Adjust the user section to properly align elements */
+.user {
+    display: flex;
+    align-items: center;
+    margin: 1rem 0;
+    padding-left: 0.5rem;
 }
 
 .sidebar {
