@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ivan Personal Website</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue&family=Poppins&family=Quicksand&display=swap" rel="stylesheet">
+</head>
+<body>
+     <div class="sidebar">
+        <div class="top">
+            <div class="logo">
+                <i class="bx bx-fingerprint"></i>
+                <span>Ivan Personal</span>
+            </div>
+            <i class="bx bx-menu" id="btn"></i>
+        </div>
+        <div class="user">
+            <img src="/static/ivanfotowebsite.jpg" alt="Ivan photo" class="user-img">
+            <div>
+                <p class="bold">Ivan S.</p>
+                <p>Admin</p>
+            </div>
+        </div>
+        <ul>
+            <li>
+                <a href="#home">
+                    <i class="bx bxs-home"></i>
+                    <span class="nav-item">Home</span>
+                </a>
+                <span class="tooltip">Home</span>
+            </li>
+            <li>
+                <a href="#skills">
+                    <i class="bx bxs-briefcase-alt-2"></i>
+                    <span class="nav-item">Skills</span>
+                </a>
+                <span class="tooltip">Skills</span>
+            </li>
+            <li>
+                <a href="#education">
+                    <i class="bx bxs-graduation"></i>
+                    <span class="nav-item">Education</span>
+                </a>
+                <span class="tooltip">Education</span>
+            </li>
+            <li>
+                <a href="#contact">
+                    <i class="bx bxs-contact"></i>
+                    <span class="nav-item">Contact</span>
+                </a>
+                <span class="tooltip">Contact</span>
+            </li>
+        </ul>
+     </div>
+     <div class="main-content">
+        <div class="container">
+            <section id="home">
+                <h1>Welcome to My Personal Website</h1>
+                <p>
+                    Hello! I'm <strong>Ivan</strong>, an 18-year  old passionate learner, aspiring software engineer, and tech enthusiast. This is the place where I share my journey, skills, and projects as I continue to grow in the world of technology.
+                </p>
+                <p>
+                    On this website, you'll find insights into my work, education, and experiences, along with details on how I stay connected with the tech community and beyond. Whether you're here to explore my skills, check out my projects, or simply learn more about me, you're in the right place!
+                </p>
+                <p>
+                    I believe in the power of continuous learning and the importance of sharing knowledge with others. So, take a look around, and feel free to reach out if you want to connect or collaborate.
+                </p>
+                <p>
+                    Enjoy your visit, and thanks for stopping by!
+                </p>
+            </section>
+        
+            <section id="skills">
+                <h2>My Skills</h2>
+                <ul>
+                    <li>Python</li>
+                    <li>Flask</li>
+                    <li>HTML/CSS</li>
+                    <li>C</li>
+                    <li>JavaScript</li>
+                    <li>Debugging</li>
+                    <li>Version Control(GIT & GITHUB)</li>
+                    <li>Time Management</li>
+                    <li>Critical Thinking</li>
+                    <li>Self-Learning & Online Course Navigation</li>
+                </ul>
+            </section>
+        
+            <section id="education">
+                <h2>My Education</h2>
+                <h3>HomeLife Academy, Tennessee --2021 - 2025</h3>
+                <p>-American High School Diploma</p>
+                <h3>Certificates:</h3>
+                <ul>
+                    <li>CS50 Introduction to Computer Science</li>
+                    <li>FreeCodeCamp Full Stack Developer (in progress)</li>
+                </ul>
+                <h3>Planning on studying Computer Sciene at a university in 2026</h3>
+
+            </section>
+        
+            <section id="contact">
+                <h2>Contact Me</h2>
+                <p>
+                    <a href="mailto:ivan.swanepoel.dev@gmail.com" target="_blank">
+                        <i class="bx bxs-envelope"></i> Email: ivan.swanepoel.dev@gmail.com
+                    </a>
+                </p>
+                <p>
+                    <a href="tel:+27660588301" target="_blank">
+                        <i class="bx bxs-phone"></i> Phone: +27 66 058 8301
+                    </a>
+                </p>
+                <p>
+                    <a href="https://github.com/Nerf-Ivan" target="_blank">
+                        <i class="bx bxl-github"></i> GitHub
+                    </a>
+                </p>
+                <p>
+                    <a href="https://www.instagram.com/ivan._.swanepoel" target="_blank">
+                        <i class="bx bxl-instagram"></i> Instagram
+                    </a>
+                </p>
+                <p>
+                    <a href="https://www.facebook.com/ivan._.swanepoel" target="_blank">
+                        <i class="bx bxl-facebook"></i> Facebook
+                    </a>
+                </p>
+
+            </section>
+            <section id="contact">
+                <h2>Contact Me</h2>
+                <!-- Display flash messages -->
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <div class="flash-message {{ category }}">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+                <form method="POST" action="/send-message">
+                    <div class="form-group">
+                        <label for="email">Your Email:</label>
+                        <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Your Message:</label>
+                        <textarea id="message" name="message" placeholder="Enter your message" required></textarea>
+                    </div>
+                    <button type="submit">Send Message</button>
+                </form>
+            </section>
+        </div>
+     </div>
+
+</body>
+<script>
+    let btn = document.querySelector('#btn');
+    let sidebar = document.querySelector('.sidebar');
+
+    btn.onclick = function(){
+        sidebar.classList.toggle('active');
+    };
+</script>
+</html>
