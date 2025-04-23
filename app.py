@@ -13,14 +13,20 @@ app.secret_key = "your-secret-key-here"  # Replace with a secure random string i
 # Debug: Print the current working directory
 print(f"Current working directory: {os.getcwd()}")
 
-# Load environment variables from credentials.env using an absolute path
-load_dotenv("/home/ivan-swanepoel/Personal-Website/credentials.env")
+# Try to load environment variables from credentials.env for local development
+# Use a relative path for local dev, since absolute path won't work on Render
+if os.path.exists("credentials.env"):
+    load_dotenv("credentials.env")
+else:
+    print("credentials.env not found, relying on environment variables")
+
+# Load environment variables (either from credentials.env or Render's environment)
 EMAIL_ADDRESS = os.getenv("EMAIL_ADDRESS")
 EMAIL_PASSWORD = os.getenv("EMAIL_PASSWORD")
 
 # Validate environment variables at startup
 if not EMAIL_ADDRESS or not EMAIL_PASSWORD:
-    raise ValueError("EMAIL_ADDRESS or EMAIL_PASSWORD not set in credentials.env")
+    raise ValueError("EMAIL_ADDRESS or EMAIL_PASSWORD not set. Check credentials.env or Render environment variables.")
 
 # Debug: Print credentials at startup
 print(f"Startup - EMAIL_ADDRESS: {EMAIL_ADDRESS}")
@@ -32,20 +38,6 @@ def home():
 
 @app.route("/send-message", methods=["POST"])
 def send_message():
-    # Reload environment variables to ensure they're available
-    load_dotenv("/home/ivan-swanepoel/Personal-Website/credentials.env")
-    email_address = os.getenv("EMAIL_ADDRESS")
-    email_password = os.getenv("EMAIL_PASSWORD")
-
-    # Debug: Print credentials during the request
-    print(f"Request - EMAIL_ADDRESS: {email_address}")
-    print(f"Request - EMAIL_PASSWORD: {email_password}")
-
-    # Validate credentials
-    if not email_address or not email_password:
-        flash("Error: Could not load email credentials", "error")
-        return redirect(url_for("home") + "#contact")
-
     # Get form data
     visitor_email = request.form.get("email")
     visitor_message = request.form.get("message")
@@ -55,9 +47,13 @@ def send_message():
         flash("Error: Email and message are required", "error")
         return redirect(url_for("home") + "#contact")
 
+    # Debug: Print credentials during the request
+    print(f"Request - EMAIL_ADDRESS: {EMAIL_ADDRESS}")
+    print(f"Request - EMAIL_PASSWORD: {EMAIL_PASSWORD}")
+
     # Set up the email
     msg = MIMEMultipart()
-    msg["From"] = email_address
+    msg["From"] = EMAIL_ADDRESS
     msg["To"] = "ivan.swanepoel.dev@gmail.com"
     msg["Subject"] = "New Message from Your Website"
     body = f"From: {visitor_email}\n\nMessage:\n{visitor_message}"
@@ -67,8 +63,8 @@ def send_message():
         # Connect to Gmail's SMTP server
         server = smtplib.SMTP("smtp.gmail.com", 587)
         server.starttls()
-        server.login(email_address, email_password)
-        server.sendmail(email_address, "ivan.swanepoel.dev@gmail.com", msg.as_string())
+        server.login(EMAIL_ADDRESS, EMAIL_PASSWORD)
+        server.sendmail(EMAIL_ADDRESS, "ivan.swanepoel.dev@gmail.com", msg.as_string())
         server.quit()
         flash("Your message was sent successfully! I'll get back to you soon.", "success")
         return redirect(url_for("home") + "#contact")
