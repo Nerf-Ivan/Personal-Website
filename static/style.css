@@ -10,9 +10,14 @@ html, body {
     margin: 0;
 }
 .user-img{
-    width: 50px;
-    border-radius: 50%;
-    border: 1px solid #eee;
+    float: left;
+    margin-left: 125px;
+    margin-top: 20px;
+    width: 200px;
+    height: 200px;
+    border-radius: 100%;
+    overflow: hidden;
+    background-color: blue;
 }
 
 .sidebar {
