@@ -17,6 +17,9 @@
             </div>
             <i class="bx bx-menu" id="btn"></i>
         </div>
+        <div class="sidebar-close">
+            <i class="bx bx-x"></i>
+        </div>
         <div class="user">
             <img src="/static/ivanfotowebsite.jpg" alt="Ivan photo" class="user-img">
             <div>
@@ -159,12 +162,51 @@
      </div>
 
 </body>
+<div class="mobile-menu-toggle">
+    <i class="bx bx-menu"></i>
+</div>
+
 <script>
+document.addEventListener('DOMContentLoaded', function() {
     let btn = document.querySelector('#btn');
     let sidebar = document.querySelector('.sidebar');
-
-    btn.onclick = function(){
+    let mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+    let sidebarClose = document.querySelector('.sidebar-close');
+    
+    // Original sidebar toggle
+    btn.onclick = function() {
         sidebar.classList.toggle('active');
     };
+    
+    // Mobile menu toggle button
+    mobileMenuToggle.onclick = function() {
+        sidebar.classList.add('active');
+    };
+    
+    // Close button for mobile
+    sidebarClose.onclick = function() {
+        sidebar.classList.remove('active');
+    };
+    
+    // Close sidebar when clicking outside on mobile
+    document.addEventListener('click', function(event) {
+        const isSmallScreen = window.innerWidth <= 480;
+        const clickedInsideSidebar = sidebar.contains(event.target);
+        const clickedOnToggle = mobileMenuToggle.contains(event.target);
+        const clickedOnBtn = btn.contains(event.target);
+        
+        if (isSmallScreen && sidebar.classList.contains('active') && 
+            !clickedInsideSidebar && !clickedOnToggle && !clickedOnBtn) {
+            sidebar.classList.remove('active');
+        }
+    });
+    
+    // Handle window resize
+    window.addEventListener('resize', function() {
+        if (window.innerWidth > 480 && sidebar.classList.contains('active') === false) {
+            sidebar.style.width = '80px'; // Ensure sidebar is visible on larger screens
+        }
+    });
+});
 </script>
 </html>

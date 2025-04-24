@@ -396,3 +396,190 @@ button[type="submit"]:active {
     transform: translateY(0);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
+@media screen and (max-width: 768px) {
+    /* Sidebar adjustments for mobile */
+    .sidebar {
+        width: 60px; /* Smaller width on mobile */
+        padding: 0.2rem 0.5rem;
+        z-index: 100; /* Ensure sidebar stays on top */
+    }
+    
+    .sidebar.active {
+        width: 200px; /* Smaller expanded width on mobile */
+    }
+    
+    .sidebar.active ~ .main-content {
+        left: 200px;
+        width: calc(100% - 200px);
+    }
+    
+    /* Main content adjustments */
+    .main-content {
+        left: 60px;
+        width: calc(100% - 60px);
+        padding: 1rem; /* Smaller padding on mobile */
+    }
+    
+    /* Typography adjustments */
+    #home h1 {
+        font-size: 2rem; /* Smaller headline on mobile */
+    }
+    
+    #home p {
+        font-size: 1rem;
+        line-height: 1.5;
+    }
+    
+    section h1, section h2 {
+        font-size: 1.8rem;
+    }
+    
+    section p {
+        font-size: 1rem;
+    }
+    
+    section ul li {
+        font-size: 1rem;
+        padding: 8px 12px;
+    }
+    
+    /* Handle collapsed sidebar state better on mobile */
+    .sidebar.active #btn {
+        left: 80%; /* Adjust position of menu button */
+    }
+    
+    /* Improve form display on mobile */
+    form {
+        padding: 1rem;
+        margin: 1rem 0;
+        width: 100%;
+    }
+    
+    .form-group input,
+    .form-group textarea {
+        padding: 0.6rem;
+        font-size: 1rem;
+    }
+    
+    button[type="submit"] {
+        padding: 0.8rem;
+        font-size: 1rem;
+    }
+}
+
+/* Extra small devices (phones, 480px and down) */
+@media screen and (max-width: 480px) {
+    /* Make sidebar toggle hide completely or show as overlay */
+    .sidebar {
+        width: 0; /* Hidden by default on very small screens */
+        overflow: hidden;
+    }
+    
+    .sidebar.active {
+        width: 200px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.5); /* Add shadow to overlay */
+    }
+    
+    /* When sidebar is hidden, content takes full width */
+    .main-content {
+        left: 0;
+        width: 100%;
+    }
+    
+    .sidebar.active ~ .main-content {
+        opacity: 0.8; /* Dim the main content when sidebar is open */
+    }
+    
+    /* Add a persistent small menu button that stays visible */
+    .mobile-menu-toggle {
+        display: block;
+        position: fixed;
+        top: 10px;
+        left: 10px;
+        background-color: #12171e;
+        color: white;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        text-align: center;
+        line-height: 40px;
+        z-index: 101;
+        cursor: pointer;
+    }
+    
+    /* Further reduce font sizes */
+    #home h1 {
+        font-size: 1.8rem;
+    }
+    
+    section h2 {
+        font-size: 1.5rem;
+    }
+    
+    /* Stack list items vertically */
+    section ul {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    /* Contact links should be more tappable */
+    #contact p {
+        margin: 15px 0;
+    }
+    
+    #contact p a {
+        padding: 8px 0;
+        display: inline-block;
+    }
+    
+    /* Improve form elements spacing */
+    .form-group {
+        margin-bottom: 1rem;
+    }
+}
+
+/* Fix for touch devices */
+@media (hover: none) {
+    .sidebar ul li:hover .tooltip {
+        opacity: 0; /* Hide tooltips on touch devices */
+    }
+    
+    section ul li:hover {
+        transform: none; /* Remove hover animations on touch devices */
+    }
+}
+
+/* Fixed positioning for mobile menu button */
+.mobile-menu-toggle {
+    display: none; /* Hidden by default, shown in media query */
+}
+
+/* Add a close button for the mobile sidebar */
+.sidebar-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    display: none;
+}
+
+@media screen and (max-width: 480px) {
+    .sidebar-close {
+        display: block;
+    }
+}
+
+/* Adjust user section for better mobile display */
+@media screen and (max-width: 768px) {
+    .sidebar.active .user-img {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .user p {
+        font-size: 0.9rem;
+    }
+}
